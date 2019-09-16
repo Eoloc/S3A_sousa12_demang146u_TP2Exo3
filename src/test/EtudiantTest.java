@@ -18,11 +18,18 @@ public class EtudiantTest {
     @org.junit.Test
     public void testAjouterNote() {
         etu.ajouterNote("Maths", 12);
-        assertEquals();
+        assertEquals(12, (double) etu.getResultats().get("Maths").get(0), 0.001);
+        etu.ajouterNote("Eco", 5);
+        assertEquals(null, etu.getResultats().get("Eco"));
+
     }
 
     @org.junit.Test
     public void testMoyenneMatiere() {
+        etu.ajouterNote("Maths", 10);
+        etu.ajouterNote("Maths", 15);
+        etu.ajouterNote("Maths", 20);
+        assertEquals(15, etu.moyenneMatiere("Maths"));
     }
 
     @org.junit.Test
