@@ -39,4 +39,8 @@ public class Formation {
                 Objects.equals(coefs, formation.coefs);
     }
 
+    public List<String> getMatieres() {
+        return matieres;
+    }
+
 }
