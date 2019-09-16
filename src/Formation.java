@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Formation {
     private List<String> matieres;
@@ -32,4 +29,14 @@ public class Formation {
         else
             return -1;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Formation)) return false;
+        Formation formation = (Formation) o;
+        return Objects.equals(matieres, formation.matieres) &&
+                Objects.equals(coefs, formation.coefs);
+    }
+
 }
