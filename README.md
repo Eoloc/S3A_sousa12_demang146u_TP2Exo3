@@ -1,1 +1,3 @@
-# CPOA_exercice3
+# Louis Demange
+# Alexandre Sousa
+# S3A
