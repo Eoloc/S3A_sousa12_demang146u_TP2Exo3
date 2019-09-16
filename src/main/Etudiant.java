@@ -50,4 +50,8 @@ public class Etudiant {
         return moyenne;
     }
 
+    public HashMap<String, List<Double>> getResultats() {
+        return resultats;
+    }
+
 }
