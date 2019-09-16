@@ -1,5 +1,4 @@
 package main;
-
 import java.util.*;
 
 public class Formation {
@@ -29,7 +28,7 @@ public class Formation {
         if (matieres.contains(nom))
             return coefs.get(nom);
         else
-            return 0;
+            return -1;
     }
 
     @Override

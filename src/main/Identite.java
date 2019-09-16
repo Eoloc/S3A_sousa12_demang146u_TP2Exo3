@@ -1,5 +1,4 @@
 package main;
-
 public class Identite {
     private String NIP;
     private String nom;
