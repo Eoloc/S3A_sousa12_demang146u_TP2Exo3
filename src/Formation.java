@@ -27,7 +27,7 @@ public class Formation {
         if (matieres.contains(nom))
             return coefs.get(nom);
         else
-            return -1;
+            return 0;
     }
 
     @Override
