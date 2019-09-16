@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Etudiant {
@@ -9,11 +11,10 @@ public class Etudiant {
         this.identite = pIdentite;
         this.formation = pFormation;
         this.resultats = new HashMap<String, List<Double>>();
-        for (String matiere : this.formation.getMatiere()){
-            List<Double> listeNote = new List<Double>();
+        for (String matiere : this.formation.getMatieres()){
+            List<Double> listeNote = new ArrayList<Double>();
             this.resultats.put(matiere, listeNote);
         }
-        this.resultats.put(matiere, listeNote);
     }
 
     public void ajouterNote(String matiere, double note) {
@@ -45,8 +46,6 @@ public class Etudiant {
             totalCoef += this.formation.getCoef(matiere);
         }
         moyenne = moyenne / totalCoef;
-        
-
         return moyenne;
     }
 
