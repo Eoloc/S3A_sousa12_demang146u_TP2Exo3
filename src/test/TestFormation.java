@@ -21,6 +21,8 @@ public class TestFormation {
 	@Test
 	public void testAjouterMatiere() {
 		assertTrue("Mathématique devrait être dans la formation", formation.getMatieres().contains("Mathématique"));
+		formation.ajouterMatiere(null, 9);
+		assertFalse("Null ne devrait pas être dans la formation", formation.getMatieres().contains(null));
 	}
 
 	@Test
@@ -34,6 +36,7 @@ public class TestFormation {
 	public void testGetCoef() {
 		assertEquals("Le coeficient de Mathématique devrait être 9", 9, formation.getCoef("Mathématique"), 0.1);
 		assertEquals("Le coeficient de SVT devrait être 7", 7, formation.getCoef("SVT"), 0.1);
+		assertEquals("Le coeficient de Français devrait être 0 car elle n'existe pas", 0, formation.getCoef("Français"), 0.1);
 	}
 
 	@Test
