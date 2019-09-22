@@ -11,10 +11,13 @@ public class Formation {
     }
 
     public void ajouterMatiere(String nom, double coef) {
-        if (!matieres.contains(nom)) {
-            matieres.add(nom);
-            coefs.put(nom, coef);
-        }
+    	if(nom != null ) {
+    		if (!matieres.contains(nom)) {
+                matieres.add(nom);
+                coefs.put(nom, coef);
+            }
+    	}
+        
     }
 
     public void supprimerMatiere(String nom) {
