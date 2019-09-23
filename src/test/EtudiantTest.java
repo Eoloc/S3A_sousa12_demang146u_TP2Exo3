@@ -29,11 +29,13 @@ public class EtudiantTest {
         etu.ajouterNote("Maths", 15);
         etu.ajouterNote("Maths", 20);
         assertEquals(15, etu.moyenneMatiere("Maths"), 0.001);
+        assertNull(etu.moyenneMatiere("Eco"));
     }
 
     @org.junit.Test
     public void testmoyenneGenerale() {
     	etu.ajouterNote("Maths", 10);
+        assertEquals(10.0, etu.moyenneGenerale(), 0.001);
         etu.ajouterNote("Info", 20);
         assertEquals(17.143, etu.moyenneGenerale(), 0.001);
     }
