@@ -27,23 +27,34 @@ public class Etudiant {
         }
     }
 
-    public double moyenneMatiere(String matiere) {
-        double moyenne = 0;
+    public Double moyenneMatiere(String matiere) {
+        if(!formation.getMatieres().contains(matiere)) {
+            return null;
+        }
+        Double moyenne = 0.;
         if (this.resultats.containsKey(matiere)) {
             List<Double> listeNote = this.resultats.get(matiere);
             for (int i = 0; i < listeNote.size(); i++) {
                 moyenne += listeNote.get(i);
+            }
+            if(listeNote.size() == 0) {
+                return null;
             }
             moyenne = moyenne / listeNote.size();
         }
         return moyenne;
     }
 
-    public double moyenneGenerale() {
-        double moyenne = 0;
-        double totalCoef = 0;
+    public Double moyenneGenerale() {
+        Double moyenne = 0.;
+        Double totalCoef = 0.;
+        Double moyenneMat = 0.;
         for (String matiere : this.formation.getMatieres()) {
-            moyenne += moyenneMatiere(matiere) * this.formation.getCoef(matiere);
+            moyenneMat = moyenneMatiere(matiere);
+            if(moyenneMat == null) {
+                return null;
+            }
+            moyenne += moyenneMat * this.formation.getCoef(matiere);
             totalCoef += this.formation.getCoef(matiere);
         }
         moyenne = moyenne / totalCoef;
