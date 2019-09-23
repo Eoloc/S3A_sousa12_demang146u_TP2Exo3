@@ -33,7 +33,7 @@ public class EtudiantTest {
     }
 
     @org.junit.Test
-    public void testmoyenneGenerale() {
+    public void testMoyenneGenerale() {
     	etu.ajouterNote("Maths", 10);
         assertEquals(10.0, etu.moyenneGenerale(), 0.001);
         etu.ajouterNote("Info", 20);
