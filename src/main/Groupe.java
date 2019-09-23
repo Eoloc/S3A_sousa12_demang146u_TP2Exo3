@@ -13,20 +13,27 @@ public class Groupe {
     }
 
     public boolean ajouterEtu(Etudiant e) {
-        return etudiants.add(e);
+        if (e.getFormation().equals(this.formation))
+            return etudiants.add(e);
+        else
+            return false;
     }
 
     public boolean supprimerEtu(Etudiant e) {
         return etudiants.remove(e);
     }
 
-    public double moyenneMatiere(String matiere) {
-        double moyenne = 0;
-
+    public Double moyenneMatiere(String matiere) {
+        if (!formation.getMatieres().contains(matiere))
+            return null;
+        Double moyenne = 0.;
+        for (Etudiant e : etudiants) {
+            moyenne += e.moyenneMatiere(matiere);
+        }
         return moyenne;
     }
 
-    public double moyenneGenerale() {
+    public Double moyenneGenerale() {
         double moyenne = 0;
 
         return moyenne;

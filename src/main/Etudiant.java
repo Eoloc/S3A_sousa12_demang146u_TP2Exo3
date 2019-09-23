@@ -65,4 +65,8 @@ public class Etudiant {
         return resultats;
     }
 
+    public Formation getFormation() {
+        return formation;
+    }
+
 }
