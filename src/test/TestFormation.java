@@ -2,6 +2,7 @@ package test;
 
 import static org.junit.Assert.*;
 
+import main.FormationException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,9 +19,17 @@ public class TestFormation {
 		formation.ajouterMatiere("SVT", 7);
 	}
 
+	@Test(expected = FormationException.class)
+	public void testAjouterMatiereException() throws FormationException {
+		formation.ajouterMatiere("Latin", -2);
+	}
+
 	@Test
-	public void testAjouterMatiere() {
+	public void testAjouterMatiere() throws FormationException {
+		/* ajout de la matière mathématique */
 		assertTrue("Mathématique devrait être dans la formation", formation.getMatieres().contains("Mathématique"));
+
+		/* ajout de la valeur null dans les matière */
 		formation.ajouterMatiere(null, 9);
 		assertFalse("Null ne devrait pas être dans la formation", formation.getMatieres().contains(null));
 	}
@@ -32,15 +41,19 @@ public class TestFormation {
 		assertFalse("Mathématique ne devrait pas être dans la formation", formation.getMatieres().contains("Mathématique"));
 	}
 
-	@Test
-	public void testGetCoef() {
-		assertEquals("Le coeficient de Mathématique devrait être 9", 9, formation.getCoef("Mathématique"), 0.1);
-		assertEquals("Le coeficient de SVT devrait être 7", 7, formation.getCoef("SVT"), 0.1);
+	@Test(expected = FormationException.class)
+	public void testGetCoefException() throws FormationException {
 		assertEquals("Le coeficient de Français devrait être 0 car elle n'existe pas", 0, formation.getCoef("Français"), 0.1);
 	}
 
 	@Test
-	public void testEquals() {
+	public void testGetCoef() throws FormationException {
+		assertEquals("Le coeficient de Mathématique devrait être 9", 9, formation.getCoef("Mathématique"), 0.1);
+		assertEquals("Le coeficient de SVT devrait être 7", 7, formation.getCoef("SVT"), 0.1);
+	}
+
+	@Test
+	public void testEquals() throws FormationException {
 		Formation formation2 = new Formation();
 		formation2.ajouterMatiere("Mathématique", 9);
 		formation2.ajouterMatiere("SVT", 7);
