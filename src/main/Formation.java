@@ -10,12 +10,17 @@ public class Formation {
         coefs = new HashMap<String, Double>();
     }
 
-    public void ajouterMatiere(String nom, double coef) {
+    public void ajouterMatiere(String nom, double coef) throws FormationException {
     	if(nom != null ) {
-    		if (!matieres.contains(nom)) {
-                matieres.add(nom);
-                coefs.put(nom, coef);
+    	    if(coef < 0) {
+    	        throw new FormationException("Le coefficient d'une matière ne peut pas être négatif");
+            } else {
+                if (!matieres.contains(nom)) {
+                    matieres.add(nom);
+                    coefs.put(nom, coef);
+                }
             }
+
     	}
         
     }
@@ -27,11 +32,11 @@ public class Formation {
         }
     }
 
-    public double getCoef(String nom) {
+    public double getCoef(String nom) throws FormationException {
         if (matieres.contains(nom))
             return coefs.get(nom);
         else
-            return 0;
+            throw new FormationException("La matiere n'est pas dans la formation");
     }
 
     @Override

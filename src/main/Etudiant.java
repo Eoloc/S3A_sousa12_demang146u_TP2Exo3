@@ -45,7 +45,7 @@ public class Etudiant {
         return moyenne;
     }
 
-    public Double moyenneGenerale() {
+    public Double moyenneGenerale() throws FormationException {
         Double moyenne = 0.;
         Double totalCoef = 0.;
         Double moyenneMat = 0.;

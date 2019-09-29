@@ -39,7 +39,7 @@ public class EtudiantTest {
     }
 
     @org.junit.Test
-    public void testMoyenneGenerale() {
+    public void testMoyenneGenerale() throws FormationException {
         /* pas de note dans toute les matiere de la foramtion */
     	etu.ajouterNote("Maths", 10);
         assertEquals(10.0, etu.moyenneGenerale(), 0.001);
