@@ -1,4 +1,6 @@
 package main;
+
+import javax.xml.soap.Node;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,23 +14,24 @@ public class Etudiant {
         this.identite = pIdentite;
         this.formation = pFormation;
         this.resultats = new HashMap<String, List<Double>>();
-        for (String matiere : this.formation.getMatieres()){
+        for (String matiere : this.formation.getMatieres()) {
             List<Double> listeNote = new ArrayList<Double>();
             this.resultats.put(matiere, listeNote);
         }
     }
 
-    public void ajouterNote(String matiere, double note) {
-        if (note >= 0 && note <= 20) {
-            if (this.resultats.containsKey(matiere)) {
-                List<Double> listeNote = this.resultats.get(matiere);
-                listeNote.add(note);
-            }
+    public void ajouterNote(String matiere, double note) throws NoteInvalideException, NoteOrFormationException {
+        if (note < 0 || note > 20) {
+            throw new NoteInvalideException("La note doit etre comprise entre 0 et 20");
+        } else if (!resultats.containsKey(matiere)) {
+            throw new NoteOrFormationException(matiere + "ne fait pas parti de la formation");
+        } else {
+            resultats.get(matiere).add(note);
         }
     }
 
     public Double moyenneMatiere(String matiere) {
-        if(!formation.getMatieres().contains(matiere)) {
+        if (!formation.getMatieres().contains(matiere)) {
             return null;
         }
         Double moyenne = 0.;
@@ -37,7 +40,7 @@ public class Etudiant {
             for (int i = 0; i < listeNote.size(); i++) {
                 moyenne += listeNote.get(i);
             }
-            if(listeNote.size() == 0) {
+            if (listeNote.size() == 0) {
                 return null;
             }
             moyenne = moyenne / listeNote.size();
@@ -49,16 +52,18 @@ public class Etudiant {
         Double moyenne = 0.;
         Double totalCoef = 0.;
         Double moyenneMat = 0.;
-        for (String matiere : this.formation.getMatieres()) {
+        for (String matiere : formation.getMatieres()) {
             moyenneMat = moyenneMatiere(matiere);
-            if(moyenneMat == null) {
-                return null;
+            if (moyenneMat != null) {
+                moyenne += moyenneMat * formation.getCoef(matiere);
+                totalCoef += formation.getCoef(matiere);
             }
-            moyenne += moyenneMat * this.formation.getCoef(matiere);
-            totalCoef += this.formation.getCoef(matiere);
         }
         moyenne = moyenne / totalCoef;
-        return moyenne;
+        if (moyenne.isNaN())
+            return null;
+        else
+            return moyenne;
     }
 
     public HashMap<String, List<Double>> getResultats() {

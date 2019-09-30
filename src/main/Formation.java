@@ -20,9 +20,7 @@ public class Formation {
                     coefs.put(nom, coef);
                 }
             }
-
     	}
-        
     }
 
     public void supprimerMatiere(String nom) {
