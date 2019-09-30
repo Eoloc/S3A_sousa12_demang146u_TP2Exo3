@@ -1,9 +1,6 @@
 package main;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Groupe {
     private Formation formation;
@@ -37,27 +34,56 @@ public class Groupe {
                 coef++;
             }
         }
-        return moyenne / coef;
+        moyenne = moyenne / coef;
+        if (moyenne.isNaN())
+            return null;
+        else
+            return moyenne;
     }
 
     public Double moyenneGenerale() {
         if (etudiants.size() <= 0)
             return null;
-        double moyenne = 0;
-
-        return moyenne;
-
+        Double moyenne = 0.;
+        int coef = 0;
+        for (Etudiant e : etudiants) {
+            Double moy = e.moyenneGenerale();
+            if (moy != null) {
+                moyenne += moy;
+                coef++;
+            }
+        }
+        moyenne = moyenne / coef;
+        if (moyenne.isNaN())
+            return null;
+        else
+            return moyenne;
     }
 
     public List<Etudiant> triParMerite() {
         List<Etudiant> list = new ArrayList<Etudiant>(etudiants);
-
+        list.sort(new Comparator<Etudiant>() {
+            @Override
+            public int compare(Etudiant e1, Etudiant e2) {
+                if (e1.moyenneGenerale() < e2.moyenneGenerale()) return -1;
+                else if (e1.moyenneGenerale() > e2.moyenneGenerale()) return 1;
+                return 0;
+            }
+        });
         return list;
     }
 
     public List<Etudiant> triAlpha() {
         List<Etudiant> list = new ArrayList<Etudiant>(etudiants);
-
+        list.sort(new Comparator<Etudiant>() {
+            @Override
+            public int compare(Etudiant e1, Etudiant e2) {
+                if (!e1.getNom().equals(e2.getNom()))
+                    return e1.getNom().compareTo(e2.getNom());
+                else
+                    return e1.getPrenom().compareTo(e2.getPrenom());
+            }
+        });
         return list;
     }
 }
