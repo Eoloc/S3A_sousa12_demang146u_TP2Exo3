@@ -64,7 +64,11 @@ public class GroupeTest {
     }
 
     @Test
-    public void moyenneGenerale() {
-        
+    public void moyenneGenerale() throws NoteInvalideException, NoteOrFormationException {
+        groupe1.ajouterEtu(etudiant2);
+        etudiant1.ajouterNote("Mathematique", 10);
+        etudiant1.ajouterNote("Mathematique", 18);
+        etudiant2.ajouterNote("Informatique", 18);
+        assertEquals(16, groupe1.moyenneGenerale, 0.001);
     }
 }
