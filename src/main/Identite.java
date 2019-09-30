@@ -9,4 +9,12 @@ public class Identite {
         this.nom = pNom;
         this.prenom = pPrenom;
     }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
 }

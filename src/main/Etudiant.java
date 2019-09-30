@@ -1,6 +1,5 @@
 package main;
 
-import javax.xml.soap.Node;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,15 +47,18 @@ public class Etudiant {
         return moyenne;
     }
 
-    public Double moyenneGenerale() throws FormationException {
+    public Double moyenneGenerale() {
         Double moyenne = 0.;
         Double totalCoef = 0.;
         Double moyenneMat = 0.;
         for (String matiere : formation.getMatieres()) {
             moyenneMat = moyenneMatiere(matiere);
             if (moyenneMat != null) {
-                moyenne += moyenneMat * formation.getCoef(matiere);
-                totalCoef += formation.getCoef(matiere);
+                try {
+                    moyenne += moyenneMat * formation.getCoef(matiere);
+                    totalCoef += formation.getCoef(matiere);
+                } catch (FormationException ignored) {}
+
             }
         }
         moyenne = moyenne / totalCoef;
@@ -72,6 +74,14 @@ public class Etudiant {
 
     public Formation getFormation() {
         return formation;
+    }
+
+    public String getNom() {
+        return identite.getNom();
+    }
+
+    public String getPrenom() {
+        return identite.getPrenom();
     }
 
 }
