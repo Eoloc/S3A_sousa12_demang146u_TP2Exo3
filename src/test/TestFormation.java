@@ -21,21 +21,23 @@ public class TestFormation {
 
 	@Test(expected = FormationException.class)
 	public void testAjouterMatiereException() throws FormationException {
+		/* test qui leve une exception si le coef est negatif */
 		formation.ajouterMatiere("Latin", -2);
 	}
 
 	@Test
 	public void testAjouterMatiere() throws FormationException {
-		/* ajout de la matière mathématique */
+		/* test d'ajout de la matière mathématique */
 		assertTrue("Mathématique devrait être dans la formation", formation.getMatieres().contains("Mathématique"));
 
-		/* ajout de la valeur null dans les matière */
+		/* test d'ajout de la valeur null dans les matière */
 		formation.ajouterMatiere(null, 9);
 		assertFalse("Null ne devrait pas être dans la formation", formation.getMatieres().contains(null));
 	}
 
 	@Test
 	public void testSupprimerMatiere() {
+		/* test de la suppression d'une matiere */
 		formation.supprimerMatiere("Mathématique");
 		assertTrue("SVT devrait être dans la formation", formation.getMatieres().contains("SVT"));
 		assertFalse("Mathématique ne devrait pas être dans la formation", formation.getMatieres().contains("Mathématique"));
@@ -43,6 +45,7 @@ public class TestFormation {
 
 	@Test(expected = FormationException.class)
 	public void testGetCoefException() throws FormationException {
+		/* test qui leve une exception si le coefficient d'une matiere non existante est différent de 0 */
 		assertEquals("Le coeficient de Français devrait être 0 car elle n'existe pas", 0, formation.getCoef("Français"), 0.1);
 	}
 

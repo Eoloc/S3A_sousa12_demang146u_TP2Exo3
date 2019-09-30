@@ -16,19 +16,26 @@ public class GroupeTest {
 
     @Before
     public void setUp() throws Exception {
+        /* formations */
         f1 = new Formation();
         f1.ajouterMatiere("Mathematique", 9);
         f1.ajouterMatiere("Informatique", 5);
         f2 = new Formation();
         f2.ajouterMatiere("Français", 3);
+
+        /* identites */
         Identite id1 = new Identite("ETU0123", "Sousa", "Alexandre");
         Identite id2 = new Identite("ETU4567", "Demange", "Louis");
         Identite id3 = new Identite("ETU8910", "Jin", "Liyao");
         Identite id4 = new Identite("ETU4568", "Demange", "Felix");
+
+        /* etudiants */
         etudiant1 = new Etudiant(id1, f1);
         etudiant2 = new Etudiant(id2, f1);
         etudiant3 = new Etudiant(id3, f2);
         etudiant4 = new Etudiant(id4, f1);
+
+        /* groupe */
         groupe1 = new Groupe(f1);
         groupe1.ajouterEtu(etudiant1);
     }
@@ -89,7 +96,7 @@ public class GroupeTest {
 
     @Test
     public void testTriParMerite() throws NoteInvalideException, NoteOrFormationException {
-        /* test normal */
+        /* test avec 3 etudiants */
         groupe1.ajouterEtu(etudiant2);
         groupe1.ajouterEtu(etudiant4);
         etudiant1.ajouterNote("Mathematique", 20);
@@ -103,13 +110,23 @@ public class GroupeTest {
 
     @Test
     public void testTriParAlpha() {
-        /* test avec 2 etudiants qui ont le même nom */
+        /* test avec 2 etudiants qui n'ont rien en commun */
         groupe1.ajouterEtu(etudiant2);
-        groupe1.ajouterEtu(etudiant4);
         List<Etudiant> l = groupe1.triAlpha();
-        assertEquals(etudiant4, l.get(0));
-        assertEquals(etudiant2, l.get(1));
-        assertEquals(etudiant1, l.get(2));
+        assertEquals(etudiant2, l.get(0));
+        assertEquals(etudiant1, l.get(1));
+
+        /* test avec une liste vide */
+        Groupe groupe2 = new Groupe(f1);
+        List<Etudiant> lvide = groupe2.triAlpha();
+        assertNotNull(lvide);
+
+        /* test avec 2 etudiants qui ont le même nom */
+        groupe1.ajouterEtu(etudiant4);
+        List<Etudiant> l2 = groupe1.triAlpha();
+        assertEquals(etudiant4, l2.get(0));
+        assertEquals(etudiant2, l2.get(1));
+        assertEquals(etudiant1, l2.get(2));
     }
 
 }

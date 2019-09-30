@@ -17,24 +17,28 @@ public class EtudiantTest {
 
     @org.junit.Test
     public void testAjouterNote() throws NoteInvalideException, NoteOrFormationException {
+        /* test d'ajout d'une note */
         etu.ajouterNote("Maths", 12);
         assertEquals(12, (double) etu.getResultats().get("Maths").get(0), 0.001);
     }
 
     @org.junit.Test(expected = NoteInvalideException.class)
     public void testAjouterNoteInvalide() throws NoteInvalideException, NoteOrFormationException {
+        /* test qui leve une exception si on ajoute une note qui n'est pas comprise entre 0 et 20 */
         etu.ajouterNote("Maths", -1);
         etu.ajouterNote("Maths", 21);
     }
 
     @org.junit.Test(expected = NoteOrFormationException.class)
     public void testAjouterNoteOrFormation() throws NoteOrFormationException, NoteInvalideException {
+        /* test qui leve une exception si on ajoute une note a une matiere qui n'appartient
+           pas a la formation */
         etu.ajouterNote("Eco", 5);
     }
 
     @org.junit.Test
     public void testMoyenneMatiere() throws NoteInvalideException, NoteOrFormationException {
-        /* moyenne dans la formation */
+        /* test de la moyenne dans la formation */
         etu.ajouterNote("Maths", 10);
         etu.ajouterNote("Maths", 15);
         etu.ajouterNote("Maths", 20);
