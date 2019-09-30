@@ -12,7 +12,7 @@ public class GroupeTest {
 
     Groupe groupe1;
     Formation f1, f2;
-    Etudiant etudiant1, etudiant2, etudiant3;
+    Etudiant etudiant1, etudiant2, etudiant3, etudiant4;
 
     @Before
     public void setUp() throws Exception {
@@ -24,9 +24,11 @@ public class GroupeTest {
         Identite id1 = new Identite("ETU0123", "Sousa", "Alexandre");
         Identite id2 = new Identite("ETU4567", "Demange", "Louis");
         Identite id3 = new Identite("ETU8910", "Jin", "Liyao");
+        Identite id4 = new Identite("ETU4568", "Demange", "Felix");
         etudiant1 = new Etudiant(id1, f1);
         etudiant2 = new Etudiant(id2, f1);
         etudiant3 = new Etudiant(id3, f2);
+        etudiant4 = new Etudiant(id4, f1);
         groupe1 = new Groupe(f1);
         groupe1.ajouterEtu(etudiant1);
     }
@@ -86,17 +88,27 @@ public class GroupeTest {
     }
 
     @Test
-    public void testTriParMerite() {
-
+    public void testTriParMerite() throws NoteInvalideException, NoteOrFormationException {
+        /* test normal */
+        groupe1.ajouterEtu(etudiant2);
+        groupe1.ajouterEtu(etudiant4);
+        etudiant1.ajouterNote("Mathematique", 20);
+        etudiant2.ajouterNote("Mathematique", 10);
+        etudiant4.ajouterNote("Mathematique", 18);
+        List<Etudiant> l = groupe1.triParMerite();
+        assertEquals(etudiant1, l.get(0));
+        assertEquals(etudiant4, l.get(1));
+        assertEquals(etudiant2, l.get(2));
     }
 
     @Test
     public void testTriParAlpha() {
+        /* test avec 2 etudiants qui ont le même nom */
         groupe1.ajouterEtu(etudiant2);
-        groupe1.ajouterEtu(etudiant3);
+        groupe1.ajouterEtu(etudiant4);
         List<Etudiant> l = groupe1.triAlpha();
-        assertEquals(etudiant2, l.get(0));
-        assertEquals(etudiant3, l.get(1));
+        assertEquals(etudiant4, l.get(0));
+        assertEquals(etudiant2, l.get(1));
         assertEquals(etudiant1, l.get(2));
     }
 

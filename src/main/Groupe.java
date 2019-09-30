@@ -65,8 +65,8 @@ public class Groupe {
         list.sort(new Comparator<Etudiant>() {
             @Override
             public int compare(Etudiant e1, Etudiant e2) {
-                if (e1.moyenneGenerale() < e2.moyenneGenerale()) return -1;
-                else if (e1.moyenneGenerale() > e2.moyenneGenerale()) return 1;
+                if (e1.moyenneGenerale() > e2.moyenneGenerale()) return -1;
+                else if (e1.moyenneGenerale() < e2.moyenneGenerale()) return 1;
                 return 0;
             }
         });
