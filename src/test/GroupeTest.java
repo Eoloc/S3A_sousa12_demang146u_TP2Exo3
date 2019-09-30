@@ -30,7 +30,7 @@ public class GroupeTest {
     }
 
     @Test
-    public void ajouterEtu() {
+    public void testAjouterEtu() {
         /* ajout d'un étudiant */
         assertTrue("L'etudiant devrait être ajouté", groupe1.ajouterEtu(etudiant2));
 
@@ -39,7 +39,7 @@ public class GroupeTest {
     }
 
     @Test
-    public void supprimerEtu() {
+    public void testSupprimerEtu() {
         /* suppression d'un étudiant déjâ dans le groupe*/
         assertTrue("L'etudiant devrait être supprimé", groupe1.supprimerEtu(etudiant1));
 
@@ -51,7 +51,7 @@ public class GroupeTest {
     }
 
     @Test
-    public void moyenneMatiere() throws NoteInvalideException, NoteOrFormationException {
+    public void testMoyenneMatiere() throws NoteInvalideException, NoteOrFormationException {
         /* groupe normal */
         groupe1.ajouterEtu(etudiant2);
         etudiant1.ajouterNote("Mathematique", 10);
@@ -64,7 +64,33 @@ public class GroupeTest {
     }
 
     @Test
-    public void moyenneGenerale() {
-        
+    public void testMoyenneGenerale() throws NoteInvalideException, NoteOrFormationException {
+        /* groupe vide*/
+        assertNull(new Groupe(f1).moyenneGenerale());
+
+        /* groupe sans notes*/
+        groupe1.ajouterEtu(etudiant2);
+        assertNull(groupe1.moyenneGenerale());
+
+        /* un etudiant a pas de note*/
+        etudiant1.ajouterNote("Mathematique", 10);
+        etudiant1.ajouterNote("Informatique", 10);
+        assertEquals(10, groupe1.moyenneGenerale(), 0.001);
+
+        /* groupe normal*/
+        etudiant2.ajouterNote("Mathematique", 18);
+        etudiant2.ajouterNote("Informatique", 18);
+        assertEquals(14, groupe1.moyenneGenerale(), 0.001);
     }
+
+    @Test
+    public void testTriParMerite() {
+
+    }
+
+    @Test
+    public void testTriParAlpha() {
+
+    }
+
 }
