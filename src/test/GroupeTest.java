@@ -4,6 +4,8 @@ import main.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class GroupeTest {
@@ -90,6 +92,12 @@ public class GroupeTest {
 
     @Test
     public void testTriParAlpha() {
+        groupe1.ajouterEtu(etudiant2);
+        groupe1.ajouterEtu(etudiant3);
+        List<Etudiant> l = groupe1.triAlpha();
+        assertEquals(etudiant2, l.get(0));
+        assertEquals(etudiant3, l.get(1));
+        assertEquals(etudiant1, l.get(2));
     }
 
 }
