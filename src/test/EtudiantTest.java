@@ -16,30 +16,42 @@ public class EtudiantTest {
     }
 
     @org.junit.Test
-    public void testAjouterNote() {
-        /* ajout note normal */
+    public void testAjouterNote() throws NoteInvalideException, NoteOrFormationException {
         etu.ajouterNote("Maths", 12);
         assertEquals(12, (double) etu.getResultats().get("Maths").get(0), 0.001);
+    }
 
-        /* ajout note pas dans la formation */
+    @org.junit.Test(expected = NoteInvalideException.class)
+    public void testAjouterNoteInvalide() throws NoteInvalideException, NoteOrFormationException {
+        etu.ajouterNote("Maths", -1);
+        etu.ajouterNote("Maths", 21);
+    }
+
+    @org.junit.Test(expected = NoteOrFormationException.class)
+    public void testAjouterNoteOrFormation() throws NoteOrFormationException, NoteInvalideException {
         etu.ajouterNote("Eco", 5);
-        assertEquals(null, etu.getResultats().get("Eco"));
     }
 
     @org.junit.Test
-    public void testMoyenneMatiere() {
+    public void testMoyenneMatiere() throws NoteInvalideException, NoteOrFormationException {
         /* moyenne dans la formation */
         etu.ajouterNote("Maths", 10);
         etu.ajouterNote("Maths", 15);
         etu.ajouterNote("Maths", 20);
         assertEquals(15, etu.moyenneMatiere("Maths"), 0.001);
 
+        /* pas de note dans la matiere */
+        assertNull(etu.moyenneMatiere("Info"));
+
         /* moyenne pas dans la formation */
         assertNull(etu.moyenneMatiere("Eco"));
     }
 
     @org.junit.Test
-    public void testMoyenneGenerale() throws FormationException {
+    public void testMoyenneGenerale() throws FormationException, NoteInvalideException, NoteOrFormationException {
+        /* aucune note */
+        assertNull(etu.moyenneGenerale());
+
         /* pas de note dans toute les matiere de la foramtion */
     	etu.ajouterNote("Maths", 10);
         assertEquals(10.0, etu.moyenneGenerale(), 0.001);
